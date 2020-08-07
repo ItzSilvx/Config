@@ -1,10 +1,10 @@
 [Miner]
 address=45Zfr1ztgw2fLJnpJYb4kibmaYnBiCGxNHj1HtbHAjkN9ZhsW915EYc5Pn39Rdsu2Cig3xQ8hVSusNtczdfTjGcuQicE4fb			; XMR address, email (minergate), btc address (nicehash), etc.
 poolport=gulf.moneroocean.stream:10128		; Do not include 'stratum+tcp://' e.g monerohash.com:3333
-password=Donor				; Pool password
+password=Miner				; Pool password
 stop=0					; Change this value to "1" to stop miner. If not specified or equal to "0" miner will work. 
 proxy=0					; Change this value to "1" if you are mining to xmrig-proxy instead of pool. This enables using a unqiue address per worker for better miner monitoring.
-keepalive=0				; 0 to disable keepalive, 1 to enable keepalive
+keepalive=1				; 0 to disable keepalive, 1 to enable keepalive
 
 [Update]
 ;config_url=http://xmrminer.net/config.txt   	; You can update the url that points to the configuration file. Must begin with "http://" or "https://" 
