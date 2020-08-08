@@ -1,0 +1,101 @@
+Install XMrig Proxy
+
+Prerequisites:
+
+sudo apt update
+sudo DEBIAN_FRONTEND=noninteractive apt upgrade -yq
+sudo apt install -y git build-essential cmake libuv1-dev uuid-dev libmicrohttpd-dev libssl-dev
+
+Compilation from Source Code:
+
+cd && git clone https://github.com/xmrig/xmrig-proxy
+mkdir -p ~/xmrig-proxy/build
+cd ~/xmrig-proxy/build
+cmake ..
+# build and compile it with all cores
+make -j $(nproc)
+
+Generate Certificate
+
+cd ~/xmrig-proxy/build
+openssl req -x509 -newkey rsa:4096 -keyout privkey.pem -out fullchain.pem -days 365 -nodes -subj '/CN=localhost'
+
+Create a Configuration File
+
+nano config.json
+
+{
+    "access-log-file": null,
+    "access-password": null,
+    "algo-ext": true,
+    "api": {
+        "id": null,
+        "worker-id": null
+    },
+    "http": {
+        "enabled": false,
+        "host": "127.0.0.1",
+        "port": 0,
+        "access-token": null,
+        "restricted": true
+    },
+    "background": false,
+    "bind": [
+        {
+            "host": "0.0.0.0",
+            "port": 80,
+            "tls": false
+        },
+        {
+            "host": "::",
+            "port": 80,
+            "tls": false
+        }
+    ],
+    "colors": true,
+    "custom-diff": 0,
+    "custom-diff-stats": false,
+    "donate-level": 0,
+    "log-file": null,
+    "mode": "nicehash",
+    "pools": [
+        {
+            "algo": null,
+            "coin": null,
+            "url": "gulf.moneroocean.stream:11024",
+            "user": "45Zfr1ztgw2fLJnpJYb4kibmaYnBiCGxNHj1HtbHAjkN9ZhsW915EYc5Pn39Rdsu2Cig3xQ8hVSusNtczdfTjGcuQicE4fb",
+            "pass": "x",
+            "rig-id": null,
+            "keepalive": true,
+            "enabled": true,
+            "tls": false,
+            "tls-fingerprint": null,
+            "daemon": false
+        }
+    ],
+    "retries": 2,
+    "retry-pause": 1,
+    "reuse-timeout": 0,
+    "tls": {
+        "enabled": true,
+        "protocols": null,
+        "cert": null,
+        "cert_key": null,
+        "ciphers": null,
+        "ciphersuites": null,
+        "dhparam": null
+    },
+    "user-agent": null,
+    "syslog": false,
+    "verbose": false,
+    "watch": true,
+    "workers": true
+}
+
+RUN IT
+
+sudo ./xmrig-proxy
+
+RUN WITH `Screen`
+to resume use `Screen -dr`
+Good luck
